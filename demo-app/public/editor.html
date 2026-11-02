@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DocFlow — Editor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="editor">
+    <header class="editor__header" data-qa="editorHeader">
+      <span class="editor__title" data-qa="documentTitle">Loading…</span>
+      <span class="connection" data-qa="connectionStatus" data-state="connecting">Connecting…</span>
+      <div class="editor__header-actions">
+        <button data-qa="printButton" type="button">Print</button>
+        <button data-qa="emailButton" type="button">Email</button>
+      </div>
+    </header>
+
+    <nav class="toolbar" data-qa="toolbar" aria-label="Tools">
+      <button class="toolbar__more" data-qa="toolsMenuButton" type="button" aria-expanded="false">Tools</button>
+      <div class="toolbar__tools" data-qa="toolsList">
+        <button data-qa="textTool" data-tool="text" type="button" aria-pressed="false">Text</button>
+        <button data-qa="checkmarkTool" data-tool="checkmark" type="button" aria-pressed="false">✓ Check</button>
+        <button data-qa="stampTool" data-tool="stamp" type="button" aria-pressed="false">Stamp</button>
+      </div>
+      <div class="toolbar__history">
+        <button data-qa="undoButton" type="button" disabled>Undo</button>
+        <button data-qa="redoButton" type="button" disabled>Redo</button>
+      </div>
+    </nav>
+
+    <main class="editor__body">
+      <aside class="sidebar sidebar--left" data-qa="thumbnails" aria-label="Pages"></aside>
+      <section class="document" data-qa="documentArea" tabindex="-1"></section>
+      <aside class="sidebar sidebar--right" data-qa="versionsPanel" aria-label="Versions">
+        <h2>Versions</h2>
+        <button data-qa="saveVersionButton" type="button">Save version</button>
+        <table class="versions" data-qa="versionsTable">
+          <tbody></tbody>
+        </table>
+      </aside>
+    </main>
+
+    <div class="actions-bar" data-qa="selectedActionsBar" hidden>
+      <button data-qa="duplicateElementButton" type="button">Duplicate</button>
+      <button data-qa="deleteElementButton" type="button">Delete</button>
+    </div>
+
+    <div class="modal-backdrop" data-qa="emailModal" role="dialog" aria-modal="true" aria-labelledby="email-title" hidden>
+      <form class="modal" novalidate>
+        <h2 id="email-title">Send by email</h2>
+        <label>Recipient <input data-qa="recipientInput" name="to" type="email" autocomplete="off" /></label>
+        <label>Subject <input data-qa="subjectInput" name="subject" type="text" /></label>
+        <p class="modal__error" data-qa="emailError" role="alert" hidden></p>
+        <div class="modal__actions">
+          <button data-qa="cancelEmailButton" type="button">Cancel</button>
+          <button data-qa="sendEmailButton" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="toast" data-qa="toast" role="status" hidden></div>
+    <script type="module" src="/editor.js"></script>
+  </body>
+</html>

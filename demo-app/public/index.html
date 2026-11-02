@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DocFlow — My documents</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="card" data-qa="dashboard">
+      <h1>My documents</h1>
+      <ul data-qa="documentList"></ul>
+      <p data-qa="emptyState" hidden>No documents yet</p>
+    </main>
+    <script type="module">
+      const response = await fetch('/api/documents');
+      if (response.status === 401) location.assign('/login');
+      const { items } = await response.json();
+      const list = document.querySelector('[data-qa="documentList"]');
+      list.innerHTML = items
+        .map((doc) => `<li data-qa="documentListItem"><a href="/editor/${doc.id}">${doc.name}</a></li>`)
+        .join('');
+      document.querySelector('[data-qa="emptyState"]').hidden = items.length > 0;
+    </script>
+  </body>
+</html>

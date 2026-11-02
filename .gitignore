@@ -1,0 +1,7 @@
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+flaky-report.json
+.env
+.DS_Store

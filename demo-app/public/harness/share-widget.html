@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Harness — share widget</title>
+    <!-- The real host page loads third-party tags; the network guard answers them locally. -->
+    <script async src="https://analytics.test.invalid/tag.js"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <p data-qa="harnessStatus">Loading…</p>
+    <div id="root"></div>
+    <script type="module">
+      // Tests inject a typed config and host stand-ins through addInitScript;
+      // the defaults below are only for opening the page by hand.
+      const config = window.__SHARE_WIDGET_CONFIG__ ?? {
+        documentId: 1,
+        api: { baseUrl: 'https://api.test.invalid', realtimeUrl: 'wss://realtime.test.invalid' },
+      };
+      const host = window.__HOST_SERVICES__ ?? { feedback: { open() {} }, logger: { error: console.error } };
+      const { mount } = await import('/widgets/share-widget.js');
+      await mount(document.getElementById('root'), config, host);
+      document.querySelector('[data-qa="harnessStatus"]').textContent = 'Widget ready';
+    </script>
+  </body>
+</html>
